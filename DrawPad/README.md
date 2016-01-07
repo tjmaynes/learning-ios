@@ -8,5 +8,5 @@ In this tutorial, you will create an app very much like Color Pad for iPhone. In
  - create a custom RGB color selector, and
  - share your drawing!
 
-(Source)[http://www.raywenderlich.com/87899/make-simple-drawing-app-uikit-swift]
+[Source](http://www.raywenderlich.com/87899/make-simple-drawing-app-uikit-swift)
 
