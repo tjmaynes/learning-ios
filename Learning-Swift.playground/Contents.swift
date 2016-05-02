@@ -293,6 +293,47 @@ import UIKit
 let redSquare = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
 redSquare.backgroundColor = UIColor.redColor()
 
+let numberOfStoplights: Int = 4
+var population: Int = 5422
+var hasPostOffice: Bool = true
 
+let townName: String = "knowhere"
 
+let townDescription = "\(townName) has a population of \(population) and \(numberOfStoplights) stoplights."
+print(townDescription)
+
+var message: String
+
+if population < 10000 {
+    message = "\(population) is a small town!"
+} else if population >= 10000 && population < 50000 {
+    message = "\(population) is a medium town!"
+} else {
+    message = "\(population) is pretty big!"
+}
+
+print(message)
+
+if !hasPostOffice {
+    print("Where do we buy stamps?")
+}
+
+print("The maximum Int value is \(Int.max).")
+print("The minimum Int value is \(Int.min).")
+print("The maximum value for a 32-bit integer is \(Int32.max).")
+print("The minimum value for a 32-bit integer is \(Int32.min).")
+
+print("The maximum UInt value is \(UInt.max).")
+print("The minimum UInt value is \(UInt.min).")
+print("The maximum UInt32 value is \(UInt32.max).")
+print("The minimum UInt32 value is \(UInt32.max).")
+
+let numberOfPages: Int = 10
+let numberOfChapters = 3
+
+let numberOfPeople: UInt = 40
+let volumeAdjustment: Int32 = -10000
+
+let firstBadValue: UInt = -1
+let secondBadValue: Int8 = 20000
 
