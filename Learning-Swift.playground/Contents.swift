@@ -334,6 +334,80 @@ let numberOfChapters = 3
 let numberOfPeople: UInt = 40
 let volumeAdjustment: Int32 = -10000
 
-let firstBadValue: UInt = -1
-let secondBadValue: Int8 = 20000
+var myFirstInt: Int = 0
 
+var i = 1
+while i < 6 {
+    myFirstInt += 1
+    print(myFirstInt)
+    i += 1
+}
+
+for case let i in 1...1000 where i % 3 == 0 {
+    print(i)
+}
+
+/*
+var shields = 5
+var blastersOverheating = false
+var blasterFireCount = 0
+var spaceDemonsDestroyed = 0
+
+while shields > 0 {
+    if spaceDemonsDestroyed > 500 {
+        print("You won!")
+        break
+    }
+
+    if blastersOverheating {
+        print("Blasters are overheated! Cooldown initiated.")
+        sleep(5)
+        print("Blasters ready to fire")
+        sleep(1)
+        blastersOverheating = false
+        blasterFireCount = 0
+    }
+
+    if blasterFireCount > 100 {
+        blastersOverheating = true
+        continue
+    }
+
+    print("Fire blasters")
+
+    blasterFireCount += 1
+    spaceDemonsDestroyed += 1
+}*/
+
+for _ in 1...5 {
+    for case let i in 0...100 where i % 2 == 0 {
+        print(i)
+    }
+}
+
+let playground = "hello, playground"
+var mutablePlayground = "Hello, mutable playground"
+mutablePlayground += "!"
+
+for c: Character in mutablePlayground.characters {
+    print("\(c)")
+}
+
+let oneCoolDude = "\u{1F60E}"
+let aAcute = "\u{0061}\u{0301}"
+
+for scalar in playground.unicodeScalars {
+    print("\(scalar.value)")
+}
+
+let aAcutePrecomposed = "\u{00E1}"
+
+let b = (aAcute == aAcutePrecomposed)
+
+print("aAcute: \(aAcute.characters.count); aAcuteDecomposed: \(aAcutePrecomposed.characters.count)")
+
+let fromStart = playground.startIndex
+let toPosition = 4 // The first position is 0.
+let end = fromStart.advancedBy(toPosition)
+
+let fifthCharacter = playground[end]
