@@ -15,5 +15,5 @@ https://www.youtube.com/watch?v=GWcEwErcMxs
 
 ## Screenshots:
 
-![start](/screenshots/1.png)
-![playing](/screenshots/2.png)
+![start](./screenshots/1.png)
+![playing](./screenshots/2.png)
