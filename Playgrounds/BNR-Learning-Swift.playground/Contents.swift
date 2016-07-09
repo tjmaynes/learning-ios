@@ -96,7 +96,7 @@ if d1 + 0.1 == 1.2 {
 
 // Chapter 5
 
-var statusCode: Int = 204
+var statusCode: Int = 418
 var errorString: String = "The request failed with the error:"
 switch statusCode {
 case 100, 101:
@@ -109,8 +109,105 @@ case 400...417:
     errorString += " Client error, \(statusCode)."
 case 500...505:
     errorString += " Server error, \(statusCode)."
+case let unknownCode where (unknownCode >= 200 && unknownCode < 300) || unknownCode > 505:
+    errorString = "\(unknownCode) is not a known error code"
 default:
     errorString = "\(statusCode) is not a known error code."
 }
 
+let error = (code: statusCode, error: errorString)
+print(error.code)
+print(error.error)
 
+let firstErrorCode = 404
+let secondErrorCode = 200
+let errorCodes = (firstErrorCode, secondErrorCode)
+
+switch errorCodes {
+case (404, 404):
+    print("No items found")
+case (404, _):
+    print("First item not found")
+case (_, 404):
+    print("Second item not found")
+default:
+    print("All items found")
+}
+
+let age: Int = 25
+if case 18...35 = age where age >= 21 {
+    print("In cool demographic and of drinking age")
+}
+
+let point = (x: 1, y: 4)
+switch point {
+case let q1 where (point.x > 0) && (point.y > 0):
+    print("\(q1) is in quadrant 1")
+case let q1 where (point.x < 0) && (point.y > 0):
+    print("\(q1) is in quadrant 2")
+case let q1 where (point.x < 0) && (point.y < 0):
+    print("\(q1) is in quadrant 3")
+case let q1 where (point.x > 0) && (point.y < 0):
+    print("\(q1) is in quadrant 4")
+case (_, 0):
+    print("\(point) sits on the x-axis")
+case (0, _):
+    print("\(point) sits on the y-axis")
+default:
+    print("Case not covered")
+}
+
+// Chapter 6
+
+var myFirstInt: Int = 0
+for _ in 1...5 {
+    myFirstInt += 1
+    print(myFirstInt)
+}
+
+for case let i in 1...100 where i % 3 == 0 {
+    //print(i)
+}
+
+var i = 1
+while i > 6 {
+    myFirstInt += 1
+    print(myFirstInt)
+}
+
+var shields = 5
+var blastersOverheating = false
+var blasterFireCount = 0
+var spaceDemonsDestroyed = 0
+while shields > 0 {
+    if spaceDemonsDestroyed == 200 {
+        print("You beat the game")
+        break
+    }
+
+    if blastersOverheating {
+        print("Blasters are overheated")
+        sleep(5)
+        print("Blasters ready to fire")
+        sleep(1)
+        blastersOverheating = false
+        blasterFireCount = 0
+    }
+
+    if blasterFireCount > 100 {
+        blastersOverheating = true
+        continue
+    }
+
+    print("Fire blasters!")
+    blasterFireCount += 1
+    spaceDemonsDestroyed += 1
+}
+
+for _ in 1...5 {
+    for case let i in 1...100 where i % 2 == 0 {
+        print(i)
+    }
+}
+
+// Chapter 7
