@@ -25,17 +25,19 @@ import Firebase
 
 class LoginViewController: UIViewController {
 
-    var ref: Firebase!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        ref = Firebase(url: "https://chatchat-90210.firebaseio.com/")
-    }
-
     @IBAction func loginDidTouch(sender: AnyObject) {
-        ref.authAnonymouslyWithCompletionBlock { (error, authData) in
-            if error != nil { print(error.description); return }
-            self.performSegueWithIdentifier("LoginToChat", sender: nil)
+        var loginData: NSDictionary?
+        if let path = NSBundle.mainBundle().pathForResource("firebase", ofType: "plist") {
+            loginData = NSDictionary(contentsOfFile: path)
+        }
+
+        if let data = loginData {
+            let email = data.objectForKey("email")
+            let password = data.objectForKey("password")
+            FIRAuth.auth()?.signInWithEmail(email! as! String, password: password! as! String) { (user, error) in
+                if error != nil { print(error!.description); return }
+                self.performSegueWithIdentifier("LoginToChat", sender: user?.uid)
+            }
         }
     }
 
@@ -43,10 +45,9 @@ class LoginViewController: UIViewController {
         super.prepareForSegue(segue, sender: sender)
 
         let navVc = segue.destinationViewController as! UINavigationController
-
         let chatVc = navVc.viewControllers.first as! ChatViewController
 
-        chatVc.senderId = ref.authData.uid
+        chatVc.senderId = sender?.uid;
         chatVc.senderDisplayName = ""
     }
     

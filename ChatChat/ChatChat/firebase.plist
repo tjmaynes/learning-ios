@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>databaseURL</key>
+	<string>$(FIREBASE_URL)</string>
+	<key>email</key>
+	<string>$(FIREBASE_EMAIL)</string>
+	<key>password</key>
+	<string>$(FIREBASE_PASSWORD)</string>
+</dict>
+</plist>

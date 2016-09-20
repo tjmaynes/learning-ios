@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		082CE4AD1D90E517004BABCE /* staging.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 082CE4AC1D90E517004BABCE /* staging.xcconfig */; };
+		082CE4AF1D90E649004BABCE /* firebase.plist in Resources */ = {isa = PBXBuildFile; fileRef = 082CE4AE1D90E649004BABCE /* firebase.plist */; };
 		BAAE0FE3E462ECFCD107B4AD /* Pods_ChatChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026C382F2F9D7C9A72B4300E /* Pods_ChatChat.framework */; };
 		BB53557A1BEF765800321277 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5355791BEF765800321277 /* AppDelegate.swift */; };
 		BB53557C1BEF765800321277 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB53557B1BEF765800321277 /* LoginViewController.swift */; };
@@ -18,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		026C382F2F9D7C9A72B4300E /* Pods_ChatChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		082CE4AC1D90E517004BABCE /* staging.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = staging.xcconfig; sourceTree = "<group>"; };
+		082CE4AE1D90E649004BABCE /* firebase.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = firebase.plist; sourceTree = "<group>"; };
 		490497CA31022773F32C8A46 /* Pods-ChatChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatChat/Pods-ChatChat.debug.xcconfig"; sourceTree = "<group>"; };
 		BB5355761BEF765800321277 /* ChatChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB5355791BEF765800321277 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +48,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		082CE4AB1D90E504004BABCE /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				082CE4AC1D90E517004BABCE /* staging.xcconfig */,
+				082CE4AE1D90E649004BABCE /* firebase.plist */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
 		21D57C03AD31858BE379D422 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +97,7 @@
 		BB5355781BEF765800321277 /* ChatChat */ = {
 			isa = PBXGroup;
 			children = (
+				082CE4AB1D90E504004BABCE /* Config */,
 				BB5355901BEF816500321277 /* Controller */,
 				BB5355921BEF818700321277 /* Layout */,
 				BB5355911BEF817A00321277 /* Supporting Files */,
@@ -182,9 +196,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				082CE4AD1D90E517004BABCE /* staging.xcconfig in Resources */,
 				BB5355841BEF765800321277 /* LaunchScreen.storyboard in Resources */,
 				BB5355811BEF765800321277 /* Assets.xcassets in Resources */,
 				BB53557F1BEF765800321277 /* Main.storyboard in Resources */,
+				082CE4AF1D90E649004BABCE /* firebase.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +289,7 @@
 /* Begin XCBuildConfiguration section */
 		BB5355861BEF765800321277 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 082CE4AC1D90E517004BABCE /* staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -319,6 +336,7 @@
 		};
 		BB5355871BEF765800321277 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 082CE4AC1D90E517004BABCE /* staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
