@@ -29,10 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   override init() {
-    if let firebaseOptionsData = NSBundle.mainBundle().pathForResource("firebase", ofType: "plist") {
-        let options = FIROptions(contentsOfFile: firebaseOptionsData)
-        FIRApp.configureWithOptions(options)
-    }
+    FIRApp.configure()
   }
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
