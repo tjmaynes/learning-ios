@@ -34,6 +34,9 @@ class ChatViewController: JSQMessagesViewController {
         super.viewDidLoad()
         title = "ChatChat"
 
+        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
+        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+
         setupBubbles()
     }
 
@@ -44,6 +47,19 @@ class ChatViewController: JSQMessagesViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
+    }
+
+    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+        let message = messages[indexPath.item]
+        if message.senderId == senderId {
+            return outgoingBubbleImageView
+        } else {
+            return incomingBubbleImageView
+        }
+    }
+
+    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+        return nil
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -59,5 +75,4 @@ class ChatViewController: JSQMessagesViewController {
         outgoingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(UIColor .jsq_messageBubbleBlueColor())
         incomingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(UIColor .jsq_messageBubbleLightGrayColor())
     }
-
 }
