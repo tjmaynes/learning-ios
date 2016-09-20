@@ -40,6 +40,17 @@ class ChatViewController: JSQMessagesViewController {
         setupBubbles()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        addMessage("foo", text: "Hey person!")
+
+        addMessage(senderId, text: "Yo!")
+        addMessage(senderId, text: "I like turtles!")
+
+        finishReceivingMessage()
+    }
+
     override func collectionView(collectionView: JSQMessagesCollectionView!,
         messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
             return messages[indexPath.item]
@@ -62,12 +73,16 @@ class ChatViewController: JSQMessagesViewController {
         return nil
     }
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
+        let message = messages[indexPath.item]
+        if message.senderId == senderId {
+            cell.textView!.textColor = UIColor.whiteColor()
+        } else {
+            cell.textView!.textColor = UIColor.blackColor()
+        }
 
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
+        return cell
     }
 
     private func setupBubbles() {
@@ -75,4 +90,10 @@ class ChatViewController: JSQMessagesViewController {
         outgoingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(UIColor .jsq_messageBubbleBlueColor())
         incomingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(UIColor .jsq_messageBubbleLightGrayColor())
     }
+
+    func addMessage(id: String, text: String) {
+        let message = JSQMessage(senderId: id, displayName: "", text: text)
+        messages.append(message)
+    }
+
 }
