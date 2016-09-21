@@ -22,33 +22,62 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 import JSQMessagesViewController
 
 class ChatViewController: JSQMessagesViewController {
 
+    var rootReference: FIRDatabaseReference!
+    var messageRef: FIRDatabaseReference!
     var messages = [JSQMessage]()
     var outgoingBubbleImageView: JSQMessagesBubbleImage!
     var incomingBubbleImageView: JSQMessagesBubbleImage!
+
+    var userIsTypingRef: FIRDatabaseReference!
+    private var localTyping = false
+    var isTyping: Bool {
+        get {
+            return localTyping
+        }
+        set {
+            localTyping = newValue
+            userIsTypingRef.setValue(newValue)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "ChatChat"
 
+        setupBubbles()
+
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
 
-        setupBubbles()
+        let databaseURL : String = self.fetchDatabaseURL()
+        let rootRef = FIRDatabase.database().referenceFromURL(databaseURL)
+        rootReference = rootRef
+        messageRef = rootReference.child("messages")
+    }
+
+    private func observeTyping() {
+        let typingIndicatorRef = rootReference.child("typingIndicator")
+        userIsTypingRef = typingIndicatorRef.child(senderId)
+        userIsTypingRef.onDisconnectRemoveValue()
+    }
+
+    func fetchDatabaseURL() -> String {
+        if let path = NSBundle.mainBundle().pathForResource("GoogleService-Info", ofType: "plist"), googleData = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
+            return googleData["DATABASE_URL"] as! String
+        } else {
+            return ""
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-        addMessage("foo", text: "Hey person!")
-
-        addMessage(senderId, text: "Yo!")
-        addMessage(senderId, text: "I like turtles!")
-
-        finishReceivingMessage()
+        observeMessages()
+        observeTyping()
     }
 
     override func collectionView(collectionView: JSQMessagesCollectionView!,
@@ -96,4 +125,32 @@ class ChatViewController: JSQMessagesViewController {
         messages.append(message)
     }
 
+    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+        let itemRef = messageRef.childByAutoId()
+        let messageItem = [
+            "text": text,
+            "senderId": senderId
+        ]
+        itemRef.setValue(messageItem)
+
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
+
+        finishSendingMessage()
+    }
+
+    private func observeMessages() {
+        let messagesQuery = messageRef.queryLimitedToLast(25)
+        messagesQuery.observeEventType(.ChildAdded) { (snapshot: FIRDataSnapshot!) in
+            let id = snapshot.value!["senderId"] as! String
+            let text = snapshot.value!["text"] as! String
+
+            self.addMessage(id, text: text)
+            self.finishSendingMessage()
+        }
+    }
+
+    override func textViewDidChange(textView: UITextView) {
+        super.textViewDidChange(textView)
+        print(textView.text != "")
+    }
 }
